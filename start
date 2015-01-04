@@ -1,0 +1,25 @@
+## This section of the code will install all the required packages for Trudecode to run on The Time for Monkeys
+## Group Servers.
+
+#Install PHP and other Lamp Applications
+curl -sSL  https://raw.githubusercontent.com/tbourne/WHMCS-One-Click-Install---Centos-7/master/install_dependencies | bash
+
+
+##      Install postgres
+#Download the RPM
+rpm -iUvh http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-1.noarch.rpm
+
+#Re-run the update script again just incase
+yum -y update
+
+# Install the Package
+yum -y install postgresql93 postgresql93-server postgresql93-contrib postgresql93-libs --disablerepo=* --enablerepo=pgdg93
+
+##      Start Postgres
+# Start Postgre on Boot
+systemctl enable postgresql-9.3
+
+# Start Postgres now
+/usr/pgsql-9.3/bin/postgresql93-setup initdb
+systemctl start postgresql-9.3
+
